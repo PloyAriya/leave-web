@@ -1,13 +1,18 @@
 <template>
+<body>
   <div class="app flex-row align-items-center">
     <div class="container">
+      <div align="center">
+          <img src="https://i.pinimg.com/originals/9a/5c/9d/9a5c9d9096dc9d2dafb3e8051a723435.png" alt="Computer man" style="width:150px;height:150px;"><br/>
+          <h1 class="font">Absent System</h1><br/>
+      </div>
       <b-row class="justify-content-center">
         <b-col md="8">
-          <b-card-group>
-            <b-card no-body class="p-4">
-              <b-card-body>
+          <b-card-group >
+            <b-card no-body class="form">
+              <b-card-body >
                 <b-form>
-                  <h1>Login</h1>
+                  <h1 class="font">Login</h1>
                   <p class="text-muted">Sign In to your account</p>
                   <b-input-group class="mb-3">
                     <b-input-group-prepend><b-input-group-text><i class="icon-user"></i></b-input-group-text></b-input-group-prepend>
@@ -19,29 +24,18 @@
                   </b-input-group>
                   <b-row>
                     <b-col cols="6">
-                      <b-button variant="primary" class="px-4">Login</b-button>
-                    </b-col>
-                    <b-col cols="6" class="text-right">
-                      <b-button variant="link" class="px-0">Forgot password?</b-button>
+                      <b-button href="/dashboard" class="fontbutton">Login</b-button>
                     </b-col>
                   </b-row>
                 </b-form>
               </b-card-body>
             </b-card>
-            <!-- <b-card no-body class="text-white bg-primary py-5 d-md-down-none" style="width:44%">
-              <b-card-body class="text-center">
-                <div>
-                  <h2>Sign up</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  <b-button variant="primary" class="active mt-3">Register Now!</b-button>
-                </div>
-              </b-card-body>
-            </b-card> -->
           </b-card-group>
         </b-col>
       </b-row>
     </div>
   </div>
+</body>  
 </template>
 
 <script>
@@ -49,3 +43,20 @@ export default {
   name: 'Login'
 }
 </script>
+
+<style>
+    body {
+      background-color: #fce4ec;
+    }
+    .font {
+      color: #e91e63;
+    }
+    .fontbutton {
+      background-color: #e91e63;
+      color: white;
+    }
+    .fontbutton:hover {
+      background-color: #fce4ec;
+      color: gray;
+    }
+</style>
