@@ -6,6 +6,7 @@ const DefaultContainer = () => import('@/containers/DefaultContainer')
 
 // Views
 const Dashboard = () => import('@/views/Dashboard')
+const Admin = () => import('@/views/admin')
 
 const Colors = () => import('@/views/theme/Colors')
 const Typography = () => import('@/views/theme/Typography')
@@ -97,6 +98,11 @@ function configRoutes() {
           path: 'charts',
           name: 'Charts',
           component: Charts
+        },
+        {
+          path: 'admin',
+          name: 'Admin',
+          component: Admin
         },
         {
           path: 'widgets',

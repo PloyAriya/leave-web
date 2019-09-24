@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <DefaultHeader/>
+    <DefaultHeader :navItems="nav"></DefaultHeader>
     <div class="app-body">
       <!-- <AppSidebar fixed>
         <SidebarHeader/>
