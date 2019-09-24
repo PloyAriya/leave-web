@@ -36,6 +36,7 @@
             </b-dropdown> -->
             <h4 class="mb-0">ลากิจ</h4>
             <p>Personal Leave</p>
+            <p>ลา 0 วัน</p>
           </b-card-body>
           <card-line2-chart-example chartId="card-chart-02" class="chart-wrapper px-3" style="height:70px;" :height="70"/>
         </b-card>
@@ -54,6 +55,7 @@
             </b-dropdown> -->
             <h4 class="mb-0">ลาป่วย</h4>
             <p>Sick Leave</p>
+            <p>ลา 2 วัน</p>
           </b-card-body>
           <card-line3-chart-example chartId="card-chart-03" class="chart-wrapper" style="height:70px;" height="70"/>
         </b-card>
