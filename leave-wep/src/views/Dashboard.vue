@@ -11,7 +11,7 @@
             <b-dropdown-item>2019</b-dropdown-item>
           </b-dropdown>
         
-        <button type="button" class="btn fontbutton btn-style">ลา</button>
+        <router-link to="/leave"><button type="button" class="btn fontbutton btn-style">ลา</button></router-link>
       </b-card-body>
     </b-row>
     <b-row>
@@ -54,8 +54,18 @@
     <b-card style="width: 75%;">
       <b-row>
         <b-col sm="5">
-          <h4 id="traffic" class="card-title mb-0">Leave</h4>
-          <div class="small text-muted">November 2017</div>
+          <h4 id="traffic" class="card-title mb-0">การลาใน 1 ปี</h4>
+          <div class="small text-muted">
+            <li>
+              ลาพักร้อน 4 วัน
+            </li>
+            <li>
+              ลากิจ 0 วัน
+            </li>
+            <li>
+              ลาป่วย 2 วัน
+            </li>
+          </div>
         </b-col>
       </b-row>
     </b-card>
@@ -68,10 +78,7 @@
               ลาพักร้อนได้ติดต่อกันไม่เกิน 5 วัน สูงสุด 20 วันต่อปี
             </li>
             <li>
-              ลาพักร้อนได้ติดต่อกันไม่เกิน 5 วัน สูงสุด 20 วันต่อปี
-            </li>
-            <li>
-              ลาพักร้อนได้ติดต่อกันไม่เกิน 5 วัน สูงสุด 20 วันต่อปี
+              ลากิจได้ 5 วันต่อปี
             </li>
           </div>
         </b-col>

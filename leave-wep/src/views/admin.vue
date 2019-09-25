@@ -2,50 +2,45 @@
   <div class="animated fadeIn font col-center">
     <b-row style="margin-bottom: 5%;">
       <b-card-body class="pb-0">
-        <div class="btn-group pr">
-          <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            เดือน
-          </button>
-          <div class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item" type="button" name="month">----</button>
-          </div>
-        </div>
-        <div class="btn-group pr">
-          <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            ปี
-          </button>
-          <div class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item" type="button" name="year">----</button>
-          </div>
-        </div>
-        <button type="button" class="btn btn-primary">ลา</button>
+        
+          <b-dropdown id="dropdown-1" text="เดือน" variant="danger" class="m-md-2">
+            <b-dropdown-item>Feb</b-dropdown-item>
+          </b-dropdown>
+        
+          <b-dropdown id="dropdown-1" text="ปี" variant="danger" class="m-md-2">
+            <b-dropdown-item>2019</b-dropdown-item>
+          </b-dropdown>
+        
+        <router-link to="admin/leave"><button type="button" class="btn fontbutton btn-style">ลา</button></router-link>
       </b-card-body>
     </b-row>
     <b-row>
       <b-col sm="4" lg="3">
-        <b-card no-body class="bg-primary">
+        <b-card no-body style="background-color: #FEC9C9;">
           <b-card-body class="pb-0">
             <h4 class="mb-0">ลาพักร้อน</h4>
             <p>Vacation Leave</p>
             <p>ลา 4 วัน</p>
+
+            <!-- <span>{{datas}}</span> -->
           </b-card-body>
           <!-- <card-line1-chart-example chartId="card-chart-01" class="chart-wrapper px-3" style="height:70px;" :height="70"/> -->
-          <card-line1-chart-example   style="height:70px;" :height="70"/>
+          <card-line3-chart-example chartId="card-chart-03" class="chart-wrapper" style="height:70px;" height="70"/>
 
         </b-card>
       </b-col>
       <b-col sm="6" lg="3">
-        <b-card no-body class="bg-info">
+        <b-card no-body style="background-color: #FEC8D8;">
           <b-card-body class="pb-0">
             <h4 class="mb-0">ลากิจ</h4>
             <p>Personal Leave</p>
             <p>ลา 0 วัน</p>
           </b-card-body>
-          <card-line2-chart-example chartId="card-chart-02" class="chart-wrapper px-3" style="height:70px;" :height="70"/>
+          <card-line3-chart-example chartId="card-chart-03" class="chart-wrapper" style="height:70px;" height="70"/>
         </b-card>
       </b-col>
       <b-col sm="6" lg="3">
-        <b-card no-body class="bg-warning">
+        <b-card no-body style="background-color: #FEC9C9;">
           <b-card-body class="pb-0">
             <h4 class="mb-0">ลาป่วย</h4>
             <p>Sick Leave</p>
@@ -55,15 +50,24 @@
         </b-card>
       </b-col>
     </b-row>
-    
 
     <b-card style="width: 75%;">
       <b-row>
         <b-col sm="5">
-          <h4 id="traffic" class="card-title mb-0">Traffic</h4>
-          <div class="small text-muted">November 2017</div>
+          <h4 id="traffic" class="card-title mb-0">การลาใน 1 ปี</h4>
+          <div class="small text-muted">
+            <li>
+              ลาพักร้อน 4 วัน
+            </li>
+            <li>
+              ลากิจ 0 วัน
+            </li>
+            <li>
+              ลาป่วย 2 วัน
+            </li>
+          </div>
         </b-col>
-      </b-row> 
+      </b-row>
     </b-card>
     <b-card style="width: 75%;">
       <b-row>
@@ -74,10 +78,7 @@
               ลาพักร้อนได้ติดต่อกันไม่เกิน 5 วัน สูงสุด 20 วันต่อปี
             </li>
             <li>
-              ลาพักร้อนได้ติดต่อกันไม่เกิน 5 วัน สูงสุด 20 วันต่อปี
-            </li>
-            <li>
-              ลาพักร้อนได้ติดต่อกันไม่เกิน 5 วัน สูงสุด 20 วันต่อปี
+              ลากิจได้ 5 วันต่อปี
             </li>
           </div>
         </b-col>
@@ -100,6 +101,7 @@ import { Callout } from '@coreui/vue'
 
 export default {
   name: 'dashboard',
+  datas: [],
   components: {
     Callout,
     CardLine1ChartExample,
@@ -204,6 +206,11 @@ export default {
     },
     flag (value) {
       return 'flag-icon flag-icon-' + value
+    },
+    async getData () {
+      var { result } = await this.axios.get('http://192.168.20.104:3001/api/v1/leaves?user_id=0001&month=02&year=2019')
+      console.log(result)
+        // this.datas = data
     }
   }
 }
@@ -223,6 +230,14 @@ export default {
   }
   .pr {
     padding-right: 20px;
+  }
+  .btn-style {
+    margin-left: 56%;
+    width: 7%;
+  }
+  .fontbutton {
+      background-color: #e91e63;
+      color: white;
   }
   
 </style>

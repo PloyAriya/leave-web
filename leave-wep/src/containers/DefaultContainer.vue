@@ -10,17 +10,17 @@
         <SidebarMinimizer/>
       </AppSidebar> -->
       <main class="main">
-        <Breadcrumb :list="list"/>
+        <!-- <Breadcrumb :list="list"/> -->
         <div class="container-fluid">
           <router-view></router-view>
         </div>
       </main>
-      <AppAside fixed>
+      <!-- <AppAside fixed> -->
         <!--aside-->
-        <DefaultAside/>
-      </AppAside>
+        <!-- <DefaultAside/> -->
+      <!-- </AppAside> -->
     </div>
-    <DefaultFooter/>
+    <!-- <DefaultFooter/> -->
   </div>
 </template>
 

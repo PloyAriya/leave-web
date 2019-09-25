@@ -6,7 +6,15 @@ const DefaultContainer = () => import('@/containers/DefaultContainer')
 
 // Views
 const Dashboard = () => import('@/views/Dashboard')
-const Admin = () => import('@/views/admin')
+
+const Leave = () => import('@/views/users/leave')
+const History = () => import('@/views/users/history')
+
+// Views - Admin
+const Admin = () => import('@/views/Admin')
+const AdminLeave = () => import('@/views/admin/AdminLeave')
+const AdminHistory = () => import('@/views/admin/AdminHistory')
+const Report = () => import('@/views/admin/AdminReport')
 
 const Colors = () => import('@/views/theme/Colors')
 const Typography = () => import('@/views/theme/Typography')
@@ -95,6 +103,21 @@ function configRoutes() {
           ]
         },
         {
+          path: 'leave',
+          name: 'Leave',
+          component: Leave
+        },
+        {
+          path: 'history',
+          name: 'History',
+          component: History
+        },
+        {
+          path: 'report',
+          name: 'Report',
+          component: Report
+        },
+        {
           path: 'charts',
           name: 'Charts',
           component: Charts
@@ -103,6 +126,16 @@ function configRoutes() {
           path: 'admin',
           name: 'Admin',
           component: Admin
+        },
+        {
+          path: 'admin/leave',
+          name: 'AdminLeave',
+          component: AdminLeave
+        },
+        {
+          path: 'admin/history',
+          name: 'AdminHistory',
+          component: AdminHistory
         },
         {
           path: 'widgets',

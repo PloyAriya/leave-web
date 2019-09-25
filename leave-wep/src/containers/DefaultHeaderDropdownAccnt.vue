@@ -1,14 +1,16 @@
 <template>
   <AppHeaderDropdown right no-caret>
     <template slot="header">
-      <img
+      <span>Adam  <i class="fa fa-sign-out" aria-hidden="true"></i></span>
+      <!-- <p>Adam</p> -->
+      <!-- <img
         src="img/avatars/6.jpg"
         class="img-avatar"
-        alt="admin@bootstrapmaster.com" />
+        alt="admin@bootstrapmaster.com" /> -->
     </template>\
     <template slot="dropdown">
       <b-dropdown-header tag="div" class="text-center"><strong>Account</strong></b-dropdown-header>
-      <b-dropdown-item><i class="fa fa-user" /> Profile</b-dropdown-item>
+      <b-dropdown-item><i class="fa fa-user" /> Edit Password</b-dropdown-item>
       <!-- <b-dropdown-item><i class="fa fa-wrench" /> Change Password</b-dropdown-item>
       <b-dropdown-item><i class="fa fa-wrench" /> Settings</b-dropdown-item> -->
       <b-dropdown-item><router-link to="/pages/login"><i class="fa fa-lock" /> Logout</router-link></b-dropdown-item>
