@@ -51,7 +51,12 @@ export default {
       console.log(result)
         // this.datas = data
     }
-  }
+  },
+  created() {
+        if(localStorage.token == "") {
+          this.$router.push({ 'path': '/'})
+        }
+  },
 }
 </script>
 
