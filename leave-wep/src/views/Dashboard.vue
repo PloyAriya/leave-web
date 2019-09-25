@@ -64,7 +64,7 @@
           <b-card-body class="pb-0">
             <h4 class="mb-0">ลาพักร้อน</h4>
             <p>Vacation Leave</p>
-            <p>ลา {{datas.result[0]["3"]}} วัน</p>
+            <p>ลา {{result["3"]}} วัน</p>
             <!-- <span>{{datas}}</span> -->
           </b-card-body>
           <!-- <card-line1-chart-example chartId="card-chart-01" class="chart-wrapper px-3" style="height:70px;" :height="70"/> -->
@@ -77,7 +77,7 @@
           <b-card-body class="pb-0">
             <h4 class="mb-0">ลากิจ</h4>
             <p>Personal Leave</p>
-            <p>ลา {{datas.result[0]["1"]}} วัน</p>
+            <p>ลา {{result["1"]}} วัน</p>
           </b-card-body>
           <card-line3-chart-example chartId="card-chart-03" class="chart-wrapper" style="height:70px;" height="70"/>
         </b-card>
@@ -87,7 +87,7 @@
           <b-card-body class="pb-0">
             <h4 class="mb-0">ลาป่วย</h4>
             <p>Sick Leave</p>
-            <p>ลา {{datas.result[0]["2"]}} วัน</p>
+            <p>ลา {{result["2"]}} วัน</p>
           </b-card-body>
           <card-line3-chart-example chartId="card-chart-03" class="chart-wrapper" style="height:70px;" height="70"/>
         </b-card>
@@ -145,9 +145,9 @@ import { Callout } from '@coreui/vue'
 export default {
    mounted () {
     this.getData()
+    this.getDate()
   },
   name: 'dashboard',
-  datas: [],
   components: {
     Callout,
     CardLine1ChartExample,
@@ -160,28 +160,31 @@ export default {
   },
   data: function () {
     return {
-     
       selected: 'Month',
-      option: this.date,
+      options: [],
+      datas: [],
+      result: ""
     }
   },
   methods: {
     async getData () {
       await this.axios.get('http://192.168.20.104:3001/api/v1/leaves?user_id=0001&month=02&year=2019').then((response) => {
         this.datas = response.data
-        console.log(this.datas.result)
+        this.result = this.datas.result[0]
+        console.log(this.result)
+        // console.log(this.datas.result)
       })
     
     },
     async getDate () {
       await this.axios.get('http://192.168.20.104:3001/api/v1/leaves/month')
       .then( function(res){
-        this.date = res.body
+        this.options = response.data
+        console.log(this.options)
       })
       .catch( function(error){
         console.log('Error: ', error);
       })
-      
     },
     resetModal() {
         this.start_date = ''
