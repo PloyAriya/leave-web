@@ -72,7 +72,7 @@ Vue.use(Router)
 function configRoutes() {
   return [
     {
-      path: '/',
+      path: '',
       redirect: '/pages/login',
       name: 'Home',
       component: DefaultContainer,

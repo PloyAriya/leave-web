@@ -1,7 +1,7 @@
 <template>
-    <AppHeader fixed style="background-color: #fce4ec; height: 70px !important;">
+    <AppHeader fixed style="background-color: #F9B3BC; height: 70px !important;">
       <!-- <SidebarToggler class="d-lg-none" display="md" mobile /> -->
-      <b-link class="navbar-brand">
+      <b-link class="d-flex">
         <img class="navbar-brand-auto" src="https://i.pinimg.com/originals/9a/5c/9d/9a5c9d9096dc9d2dafb3e8051a723435.png" width="50" height="50" alt="CoreUI Logo">
       </b-link>
       <b-navbar-nav class="d-flex">

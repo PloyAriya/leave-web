@@ -79,9 +79,13 @@ export default {
         } catch (err) {
           return err
         }
-      }  
+      },
   },
-  
+  created() {
+        if(localStorage.token == "") {
+          this.$router.push({ 'path': '/'})
+        }
+  },
 }
 </script>
 

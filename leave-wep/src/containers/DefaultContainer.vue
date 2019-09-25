@@ -2,25 +2,15 @@
   <div class="app">
     <DefaultHeader :navItems="nav"></DefaultHeader>
     <div class="app-body">
-      <!-- <AppSidebar fixed>
-        <SidebarHeader/>
-        <SidebarForm/>
-        <SidebarNav :navItems="nav"></SidebarNav>
-        <SidebarFooter/>
-        <SidebarMinimizer/>
-      </AppSidebar> -->
+  
       <main class="main">
-        <!-- <Breadcrumb :list="list"/> -->
+
         <div class="container-fluid">
           <router-view></router-view>
         </div>
       </main>
-      <!-- <AppAside fixed> -->
-        <!--aside-->
-        <!-- <DefaultAside/> -->
-      <!-- </AppAside> -->
+   
     </div>
-    <!-- <DefaultFooter/> -->
   </div>
 </template>
 
@@ -63,3 +53,12 @@ export default {
   }
 }
 </script>
+
+<style>
+  .container-fluid {
+     background-color: #f3e8e7;
+  }
+  .main {
+     background-color: #f3e8e7;
+  }
+</style>

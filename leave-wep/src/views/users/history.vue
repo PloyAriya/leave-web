@@ -1,5 +1,6 @@
 <template>
   <div class="animated fadeIn font col-center">
+
      <b-row style="margin-top:5%; margin-left: 56%;">
        <div>
         <b-navbar type="light" variant="light">
@@ -10,6 +11,13 @@
         </b-navbar>
       </div>
      </b-row>
+     <label class="font" style="margin-right:2%;">เดือน</label>
+
+        <b-form-select v-model="selected" :options="options" name="month" style="width:10%;">เดือน</b-form-select>
+        <label class="font" style="margin-right:2%; margin-left: 2%;">ปี</label>
+        <b-form-select v-model="selected" :options="options" name="year" style="width:10%;">ปี</b-form-select>
+        <b-button v-b-modal.modal-prevent-closing class="fontbutton btn-style" style="margin-right: 65%;">ค้นหา</b-button>
+
      <b-row class="my-1">
        <div class="card" style="width: 80%;margin-top:3%;">
           <div class="card-header">

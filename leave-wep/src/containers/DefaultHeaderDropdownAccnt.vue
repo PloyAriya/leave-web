@@ -5,8 +5,8 @@
      
     </template>\
     <template slot="dropdown">
-      <b-dropdown-item><a><i class="fa fa-user" /> Edit Password</a></b-dropdown-item>
-      <b-dropdown-item><a v-on:click="logout()" ><i class="fa fa-lock" /> Logout</a></b-dropdown-item>
+      <a><b-dropdown-item><i class="fa fa-user" /> Edit Password</b-dropdown-item></a>
+      <a v-on:click="logout()" ><b-dropdown-item><i class="fa fa-lock" /> Logout</b-dropdown-item></a>
     </template>
   </AppHeaderDropdown>
 </template>
