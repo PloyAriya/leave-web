@@ -44,7 +44,7 @@ export default {
   data(){
       return {
           username: "",
-          password: ""
+          password: "",
       }
   },
   methods: {
@@ -59,10 +59,10 @@ export default {
             localStorage.username = this.username
             this.$router.push({ path: '/dashboard'})
           } else {
-            alert('Invalid Username or Password')
+            alert('Username หรือ Password ผิดตรวจสอบใหม่อีกครั้ง')
           }    
         } else {
-             alert("A username and password must be present");
+             alert("กรุณากรอก Username และ Password.");
         }  
       },
       async getData () {
@@ -70,7 +70,8 @@ export default {
         var data = await this.axios.post('http://192.168.20.104:3001/api/v1/login',
           {
             username: this.username,
-            password: this.password
+            password: this.password,
+            
           }
         )
         return data
