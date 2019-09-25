@@ -2,14 +2,14 @@
   <div class="animated fadeIn font col-center">
     <b-row style="margin-bottom: 5%;">
       <b-card-body class="pb-0">
-        
-          <b-dropdown id="dropdown-1" text="เดือน" variant="danger" class="m-md-2">
+        <b-form-select v-model="selected" :options="options" name="month">เดือน</b-form-select>
+          <!-- <b-dropdown id="dropdown-1" text="เดือน" variant="danger" class="m-md-2">
             <b-dropdown-item>Feb</b-dropdown-item>
-          </b-dropdown>
-        
-          <b-dropdown id="dropdown-1" text="ปี" variant="danger" class="m-md-2">
+          </b-dropdown> -->
+        <b-form-select v-model="selected" :options="options" name="year">ปี</b-form-select>
+          <!-- <b-dropdown id="dropdown-1" text="ปี" variant="danger" class="m-md-2">
             <b-dropdown-item>2019</b-dropdown-item>
-          </b-dropdown>
+          </b-dropdown> -->
         
         <router-link to="admin/leave"><button type="button" class="btn fontbutton btn-style">ลา</button></router-link>
       </b-card-body>

@@ -35,7 +35,7 @@
 
             <b-row class="btn-mr">
               <b-button type="submit" variant="primary" style="margin-right:10px;">Submit</b-button>
-              <b-button type="reset" variant="danger">Cancle</b-button>
+              <router-link to="/dashboard"><b-button type="reset" variant="danger">Cancle</b-button></router-link>
             </b-row>
             </b-form>
           </div>

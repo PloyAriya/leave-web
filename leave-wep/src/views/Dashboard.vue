@@ -1,27 +1,70 @@
 <template>
   <div class="animated fadeIn font col-center">
-    <b-row style="margin-bottom: 5%;">
+    <b-row style="margin-bottom: 5%; margin-top: 2%;">
       <b-card-body class="pb-0">
-        
-          <b-dropdown id="dropdown-1" text="เดือน" variant="danger" class="m-md-2">
+         <label class="font" style="margin-right:2%;">เดือน</label>
+        <b-form-select v-model="selected" :options="options" name="month" style="width:10%;">เดือน</b-form-select>
+         
+          <!-- <b-dropdown id="dropdown-1" text="เดือน" variant="danger" class="m-md-2">
             <b-dropdown-item>Feb</b-dropdown-item>
-          </b-dropdown>
+          </b-dropdown> -->
+        <label class="font" style="margin-right:2%; margin-left: 2%;">ปี</label>
+        <b-form-select v-model="selected" :options="options" name="year" style="width:10%;">ปี</b-form-select>
         
-          <b-dropdown id="dropdown-1" text="ปี" variant="danger" class="m-md-2">
+          <!-- <b-dropdown id="dropdown-1" text="ปี" variant="danger" class="m-md-2">
             <b-dropdown-item>2019</b-dropdown-item>
-          </b-dropdown>
-        
-        <router-link to="/leave"><button type="button" class="btn fontbutton btn-style">ลา</button></router-link>
+          </b-dropdown> -->
+        <b-button v-b-modal.modal-prevent-closing class="fontbutton btn-style">ลา</b-button>
+        <!-- <router-link to="/leave"><button type="button" class="btn fontbutton btn-style">ลา</button></router-link> -->
+
+        <b-modal
+          id="modal-prevent-closing"
+          ref="modal"
+          title="Leave"
+          @show="resetModal"
+          @hidden="resetModal"
+          @ok="handleOk"
+          
+        >
+        <form ref="form" @submit.stop.prevent="handleSubmit">
+          <b-form-group
+            
+            label="จากวันที่"
+            label-for="start_date"
+            invalid-feedback="start date is required"
+            class="font"
+          >
+          <b-form-input
+            type="date"
+            id="start_date"
+            required
+          ></b-form-input>
+          </b-form-group>
+          <b-form-group
+            
+            label="ถึงวันที่"
+            label-for="end_date"
+            invalid-feedback="end date is required"
+            class="font"
+          >
+          <b-form-input
+          type="date"
+            id="end_date"
+            required
+          ></b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
       </b-card-body>
     </b-row>
     <b-row>
+      <!-- ลากิจ 1 ลาป่วย 2 พักร้อน 3-->
       <b-col sm="4" lg="3">
         <b-card no-body style="background-color: #FEC9C9;">
           <b-card-body class="pb-0">
             <h4 class="mb-0">ลาพักร้อน</h4>
             <p>Vacation Leave</p>
-            <p>ลา 4 วัน</p>
-
+            <p>ลา {{datas.result[0]["3"]}} วัน</p>
             <!-- <span>{{datas}}</span> -->
           </b-card-body>
           <!-- <card-line1-chart-example chartId="card-chart-01" class="chart-wrapper px-3" style="height:70px;" :height="70"/> -->
@@ -34,7 +77,7 @@
           <b-card-body class="pb-0">
             <h4 class="mb-0">ลากิจ</h4>
             <p>Personal Leave</p>
-            <p>ลา 0 วัน</p>
+            <p>ลา {{datas.result[0]["1"]}} วัน</p>
           </b-card-body>
           <card-line3-chart-example chartId="card-chart-03" class="chart-wrapper" style="height:70px;" height="70"/>
         </b-card>
@@ -44,7 +87,7 @@
           <b-card-body class="pb-0">
             <h4 class="mb-0">ลาป่วย</h4>
             <p>Sick Leave</p>
-            <p>ลา 2 วัน</p>
+            <p>ลา {{datas.result[0]["2"]}} วัน</p>
           </b-card-body>
           <card-line3-chart-example chartId="card-chart-03" class="chart-wrapper" style="height:70px;" height="70"/>
         </b-card>
@@ -78,7 +121,7 @@
               ลาพักร้อนได้ติดต่อกันไม่เกิน 5 วัน สูงสุด 20 วันต่อปี
             </li>
             <li>
-              ลากิจได้ 5 วันต่อปี
+              ลากิจได้ 5 วันต่อปี   
             </li>
           </div>
         </b-col>
@@ -100,6 +143,9 @@ import CalloutChartExample from './dashboard/CalloutChartExample'
 import { Callout } from '@coreui/vue'
 
 export default {
+   mounted () {
+    this.getData()
+  },
   name: 'dashboard',
   datas: [],
   components: {
@@ -114,103 +160,50 @@ export default {
   },
   data: function () {
     return {
+     
       selected: 'Month',
-      tableItems: [
-        {
-          avatar: { url: 'img/avatars/1.jpg', status: 'success' },
-          user: { name: 'Yiorgos Avraamu', new: true, registered: 'Jan 1, 2015' },
-          country: { name: 'USA', flag: 'us' },
-          usage: { value: 50, period: 'Jun 11, 2015 - Jul 10, 2015' },
-          payment: { name: 'Mastercard', icon: 'fa fa-cc-mastercard' },
-          activity: '10 sec ago'
-        },
-        {
-          avatar: { url: 'img/avatars/2.jpg', status: 'danger' },
-          user: { name: 'Avram Tarasios', new: false, registered: 'Jan 1, 2015' },
-          country: { name: 'Brazil', flag: 'br' },
-          usage: { value: 22, period: 'Jun 11, 2015 - Jul 10, 2015' },
-          payment: { name: 'Visa', icon: 'fa fa-cc-visa' },
-          activity: '5 minutes ago'
-        },
-        {
-          avatar: { url: 'img/avatars/3.jpg', status: 'warning' },
-          user: { name: 'Quintin Ed', new: true, registered: 'Jan 1, 2015' },
-          country: { name: 'India', flag: 'in' },
-          usage: { value: 74, period: 'Jun 11, 2015 - Jul 10, 2015' },
-          payment: { name: 'Stripe', icon: 'fa fa-cc-stripe' },
-          activity: '1 hour ago'
-        },
-        {
-          avatar: { url: 'img/avatars/4.jpg', status: '' },
-          user: { name: 'Enéas Kwadwo', new: true, registered: 'Jan 1, 2015' },
-          country: { name: 'France', flag: 'fr' },
-          usage: { value: 98, period: 'Jun 11, 2015 - Jul 10, 2015' },
-          payment: { name: 'PayPal', icon: 'fa fa-paypal' },
-          activity: 'Last month'
-        },
-        {
-          avatar: { url: 'img/avatars/5.jpg', status: 'success' },
-          user: { name: 'Agapetus Tadeáš', new: true, registered: 'Jan 1, 2015' },
-          country: { name: 'Spain', flag: 'es' },
-          usage: { value: 22, period: 'Jun 11, 2015 - Jul 10, 2015' },
-          payment: { name: 'Google Wallet', icon: 'fa fa-google-wallet' },
-          activity: 'Last week'
-        },
-        {
-          avatar: { url: 'img/avatars/6.jpg', status: 'danger' },
-          user: { name: 'Friderik Dávid', new: true, registered: 'Jan 1, 2015' },
-          country: { name: 'Poland', flag: 'pl' },
-          usage: { value: 43, period: 'Jun 11, 2015 - Jul 10, 2015' },
-          payment: { name: 'Amex', icon: 'fa fa-cc-amex' },
-          activity: 'Last week'
-        }
-      ],
-      tableFields: {
-        avatar: {
-          label: '<i class="icon-people"></i>',
-          class: 'text-center'
-        },
-        user: {
-          label: 'User'
-        },
-        country: {
-          label: 'Country',
-          class: 'text-center'
-        },
-        usage: {
-          label: 'Usage'
-        },
-        payment: {
-          label: 'Payment method',
-          class: 'text-center'
-        },
-        activity: {
-          label: 'Activity'
-        }
-      }
+      option: this.date,
     }
   },
   methods: {
-    variant (value) {
-      let $variant
-      if (value <= 25) {
-        $variant = 'info'
-      } else if (value > 25 && value <= 50) {
-        $variant = 'success'
-      } else if (value > 50 && value <= 75) {
-        $variant = 'warning'
-      } else if (value > 75 && value <= 100) {
-        $variant = 'danger'
-      }
-      return $variant
-    },
-    flag (value) {
-      return 'flag-icon flag-icon-' + value
-    },
     async getData () {
-      var { result } = await this.axios.get('http://192.168.20.104:3001/api/v1/leaves?user_id=0001&month=02&year=2019')
-      console.log(result)
-        // this.datas = data
+      await this.axios.get('http://192.168.20.104:3001/api/v1/leaves?user_id=0001&month=02&year=2019').then((response) => {
+        this.datas = response.data
+        console.log(this.datas.result)
+      })
+    
+    },
+    async getDate () {
+      await this.axios.get('http://192.168.20.104:3001/api/v1/leaves/month')
+      .then( function(res){
+        this.date = res.body
+      })
+      .catch( function(error){
+        console.log('Error: ', error);
+      })
+      
+    },
+    resetModal() {
+        this.start_date = ''
+        
+    },
+    handleOk(bvModalEvt) {
+        // Prevent modal from closing
+        bvModalEvt.preventDefault()
+        // Trigger submit handler
+        this.handleSubmit()
+    },
+    handleSubmit() {
+        // Exit when the form isn't valid
+        if (!this.checkFormValidity()) {
+          return
+        }
+        // Push the name to submitted names
+        this.submittedNames.push(this.name)
+        // Hide the modal manually
+        this.$nextTick(() => {
+          this.$refs.modal.hide()
+        })
     }
   }
 }
@@ -232,7 +225,7 @@ export default {
     padding-right: 20px;
   }
   .btn-style {
-    margin-left: 56%;
+    margin-left: 39%;
     width: 7%;
   }
   .fontbutton {
