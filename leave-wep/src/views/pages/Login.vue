@@ -56,6 +56,7 @@ export default {
             localStorage.token = data.data.token
             localStorage.firstname = data.data.result.firstname
             localStorage.lastname = data.data.result.lastname
+            localStorage.role = data.data.result.role
             localStorage.username = this.username
             this.$router.push({ path: '/dashboard'})
           } else {
@@ -66,19 +67,19 @@ export default {
         }  
       },
       async getData () {
-      try {
-        var data = await this.axios.post('http://192.168.20.104:3001/api/v1/login',
-          {
-            username: this.username,
-            password: this.password,
-            
-          }
-        )
-        return data
-      } catch (err) {
-        return err
-      }
-  }  
+        try {
+          var data = await this.axios.post('http://192.168.20.104:3001/api/v1/login',
+            {
+              username: this.username,
+              password: this.password,
+              
+            }
+          )
+          return data
+        } catch (err) {
+          return err
+        }
+      }  
   },
   
 }

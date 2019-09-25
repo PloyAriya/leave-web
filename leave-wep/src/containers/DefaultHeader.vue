@@ -1,39 +1,21 @@
 <template>
     <AppHeader fixed style="background-color: #fce4ec; height: 70px !important;">
       <!-- <SidebarToggler class="d-lg-none" display="md" mobile /> -->
-      <b-link class="navbar-brand" to="#">
-        <img class="navbar-brand-full" src="https://i.pinimg.com/originals/9a/5c/9d/9a5c9d9096dc9d2dafb3e8051a723435.png" width="50" height="50" alt="CoreUI Logo">
-        <img class="navbar-brand-minimized" src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">
+      <b-link class="navbar-brand">
+        <img class="navbar-brand-auto" src="https://i.pinimg.com/originals/9a/5c/9d/9a5c9d9096dc9d2dafb3e8051a723435.png" width="50" height="50" alt="CoreUI Logo">
       </b-link>
-      <!-- <SidebarToggler class="d-md-down-none" display="lg" :defaultOpen=true /> -->
-      
-      <!-- <b-navbar-nav v-if="isAdmin" class="d-md-down-none">
-        <b-nav-item class="px-3" to="/admin">Home</b-nav-item>
-        <b-nav-item class="px-3" to="/users" exact>History</b-nav-item>
-        <b-nav-item class="px-3" to="/users" exact>Report</b-nav-item>
-        <b-nav-item class="px-3" to="/users" exact>Check</b-nav-item> -->
-        <!-- <b-nav-item class="px-3">Settings</b-nav-item> -->
-      <!-- </b-navbar-nav> -->
-      <b-navbar-nav class="d-md-down-none">
-        <b-nav-item class="px-3" to="/dashboard">Home</b-nav-item>
-        <b-nav-item class="px-3" to="/history" exact>History</b-nav-item>
-        <!-- <b-nav-item class="px-3">Settings</b-nav-item> -->
+      <b-navbar-nav class="d-flex">
+        <b-nav-item class="p-3" to="/dashboard">Home</b-nav-item>
+        <b-nav-item class="p-3" to="/history" exact>History</b-nav-item>
+        <b-nav-item v-if ="check_type === '2'" class="p-3"  >Confirm Leave</b-nav-item>
+        <b-nav-item class="p-3" to="/#" hidden>Confirm Leave</b-nav-item>
+        <b-nav-item v-if ="check_type === '2'" class="p-3" >Report</b-nav-item>
+        <b-nav-item class="p-3" to="/#" hidden>Report</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
-        <!-- <b-nav-item class="d-md-down-none">
-          <i class="icon-bell"></i>
-          <b-badge pill variant="danger">5</b-badge>
-        </b-nav-item>
-        <b-nav-item class="d-md-down-none">
-          <i class="icon-list"></i>
-        </b-nav-item>
-        <b-nav-item class="d-md-down-none">
-          <i class="icon-location-pin"></i>
-        </b-nav-item> -->
-        <DefaultHeaderDropdownAccnt/>
+        <b-nav-item><DefaultHeaderDropdownAccnt/></b-nav-item>
+        <b-nav-item></b-nav-item>
       </b-navbar-nav>
-      <!-- <AsideToggler class="d-none d-lg-block" /> -->
-      <!--<AsideToggler class="d-lg-none" mobile />-->
     </AppHeader>
 </template>
 <script>
@@ -47,6 +29,12 @@ export default {
     AppHeader,
     DefaultHeaderDropdownAccnt,
     SidebarToggler
+  },
+  data: () => {
+    return { 
+        itemsCount: 42,
+        check_type: localStorage.role
+    }
   }
 }
 </script>
