@@ -57,6 +57,7 @@ export default {
             localStorage.firstname = data.data.result.firstname
             localStorage.lastname = data.data.result.lastname
             localStorage.role = data.data.result.role
+            localStorage.user_id = data.data.result.user_id
             localStorage.username = this.username
             this.$router.push({ path: '/dashboard'})
           } else {

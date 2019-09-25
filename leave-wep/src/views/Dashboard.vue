@@ -1,32 +1,36 @@
 <template>
   <div class="animated fadeIn font col-center">
     <b-row style="margin-bottom: 5%; margin-top: 2%;">
+      
       <b-card-body class="pb-0">
+        <b-form @submit.prevent="getDatafromSelect">
          <label class="font" style="margin-right:2%;">เดือน</label>
-        <b-form-select v-model="selected" :options="options" name="month" style="width:10%;">เดือน</b-form-select>
+          <b-form-select v-model="selectmonth" :options="month"  name="month"  style="width:10%;">เดือน</b-form-select>
          
-          <!-- <b-dropdown id="dropdown-1" text="เดือน" variant="danger" class="m-md-2">
-            <b-dropdown-item>Feb</b-dropdown-item>
-          </b-dropdown> -->
-        <label class="font" style="margin-right:2%; margin-left: 2%;">ปี</label>
-        <b-form-select v-model="selected" :options="options" name="year" style="width:10%;">ปี</b-form-select>
+         
+          <label class="font" style="margin-right:2%; margin-left: 2%;">ปี</label>
         
-          <!-- <b-dropdown id="dropdown-1" text="ปี" variant="danger" class="m-md-2">
-            <b-dropdown-item>2019</b-dropdown-item>
-          </b-dropdown> -->
-        <b-button v-b-modal.modal-prevent-closing class="fontbutton btn-style">ลา</b-button>
+          <b-form-select v-model="selectyear" :options="years" name="year" style="margin-right:2%; width:10%;">ปี</b-form-select>
+          <b-button v-on:click="search()" class="fontbutton">ค้นหา</b-button>
+        
+         
+        <b-button v-b-modal.modal-prevent-closing type="submit" class="fontbutton btn-style">ลา</b-button>
         <!-- <router-link to="/leave"><button type="button" class="btn fontbutton btn-style">ลา</button></router-link> -->
-
+        </b-form>
+        <!-- <p>{{user_id}}</p> -->
         <b-modal
+          class="font"
           id="modal-prevent-closing"
           ref="modal"
-          title="Leave"
+          title="ยื่นเรื่องการลา"
           @show="resetModal"
           @hidden="resetModal"
           @ok="handleOk"
-          
         >
-        <form ref="form" @submit.stop.prevent="handleSubmit">
+        <form ref="form" @submit.stop.prevent="handleSubmit" class="font">
+          <label class="font" style="margin-right:2%;">ประเภท</label>
+          
+          <b-form-select v-model="selected" class="font" :options="leavetype" id="leave_type" name="leave_type" style="width:30%;">ประเภท</b-form-select>
           <b-form-group
             
             label="จากวันที่"
@@ -37,6 +41,7 @@
           <b-form-input
             type="date"
             id="start_date"
+            name="start_date"
             required
           ></b-form-input>
           </b-form-group>
@@ -50,12 +55,26 @@
           <b-form-input
           type="date"
             id="end_date"
+            name="end_date"
             required
           ></b-form-input>
         </b-form-group>
+        <b-form-group
+            label="รายละเอียด"
+            label-for="leave_detail"
+            invalid-feedback="Detail is required"
+            class="font"
+          >
+          <b-form-input
+            type="textarea"
+            id="leave_detail"
+            name="leave_detail"
+          ></b-form-input>
+          </b-form-group>
       </form>
     </b-modal>
       </b-card-body>
+      
     </b-row>
     <b-row>
       <!-- ลากิจ 1 ลาป่วย 2 พักร้อน 3-->
@@ -94,10 +113,10 @@
       </b-col>
     </b-row>
 
-    <b-card style="width: 75%;">
+    <!-- <b-card style="width: 75%;">
       <b-row>
         <b-col sm="5">
-          <h4 id="traffic" class="card-title mb-0">การลาใน 1 ปี</h4>
+          <h4 id="traffic" class="card-title mb-0">จำนวนการลาในปีนี้ (2019)</h4>
           <div class="small text-muted">
             <li>
               ลาพักร้อน 4 วัน
@@ -111,7 +130,7 @@
           </div>
         </b-col>
       </b-row>
-    </b-card>
+    </b-card> -->
     <b-card style="width: 75%;">
       <b-row>
         <b-col sm="5">
@@ -144,8 +163,13 @@ import { Callout } from '@coreui/vue'
 
 export default {
    mounted () {
+    this.token = localStorage.token
+    this.user_id = localStorage.user_id
     this.getData()
     this.getDate()
+    this.getToken()
+    this.getDatafromSelect()
+    
   },
   name: 'dashboard',
   components: {
@@ -160,31 +184,102 @@ export default {
   },
   data: function () {
     return {
-      selected: 'Month',
-      options: [],
+      user_id: "",
+      selected: null,
+      option: [],
       datas: [],
-      result: ""
+      result: "",
+      leave: "",
+      token: "",
+      month: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+      years: "",
+      selectmonth: "",
+      selectyear: "",
+      leavetype: [
+        { value: 1, text: 'ลากิจ' },
+        { value: 2, text: 'ลาป่วย' },
+        { value: 3, text: 'ลาพักร้อน' }
+      ]
     }
   },
   methods: {
+    async getSelectedItem (){
+      console.log(this.selected)
+    },
     async getData () {
-      await this.axios.get('http://192.168.20.104:3001/api/v1/leaves?user_id=0001&month=02&year=2019').then((response) => {
+      await this.axios.get('http://192.168.20.104:3001/api/v1/leaves?user_id='+this.user_id+'&month=02&year=2019').then((response) => {
         this.datas = response.data
         this.result = this.datas.result[0]
-        console.log(this.result)
+        // console.log(this.result)
         // console.log(this.datas.result)
       })
     
     },
+    async search () {
+     
+      await this.axios.get('http://192.168.20.104:3001/api/v1/leaves?user_id='+this.user_id+'&month='+this.selectmonth+'&year='+this.selectyear).then((response) => {
+        this.datas = response.data
+        this.result = this.datas.result[0]
+      })
+    
+    },
+    async getToken () {
+      
+        try {
+          var data = await this.axios.post('http://192.168.20.104:3001/api/v1/login',
+            {
+              username: this.username,
+              password: this.password,
+            }
+          )
+          return data
+        } catch (err) {
+          return err
+        }
+      },
+      async get () {
+        var data = await this.getToken()
+        localStorage.token = data.data.token
+        localStorage.user_id = data.data.user_id
+      } ,
     async getDate () {
-      await this.axios.get('http://192.168.20.104:3001/api/v1/leaves/month')
-      .then( function(res){
-        this.options = response.data
-        console.log(this.options)
+      await this.axios.get('http://192.168.20.104:3001/api/v1/leaves/year').then((response) => {
+        // headers: {
+        //   'Authorization': `Bearer ${this.token}`,
+        //   'Content-type': 'application/json' 
+        // },
+        this.option = response.data
+        this.years = this.option.result
+        var start = this.years.start_year
+        var year_arr = []
+        for(var i = start; i <= this.years.last_year; i++) {
+          year_arr.push(i)
+        }
+        this.years = year_arr
+        console.log(year_arr)
       })
-      .catch( function(error){
-        console.log('Error: ', error);
-      })
+      // .catch( function(error){
+      //   console.log('Error: ', error);
+      // })
+    },
+    async handleSubmit () {
+      // console.log(start_date.value)
+      // console.log(end_date.value)
+      // console.log(leave_type.value)
+      // console.log(this.user_id)
+      await this.axios.post('http://192.168.20.104:3001/api/v1/leaves', {
+          user_id: this.user_id,
+          start_date: start_date.value,
+          end_date: end_date.value,
+          leave_type: leave_type.value,
+          leave_detail: leave_detail.value
+        })
+        .then(function (response) { 
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     resetModal() {
         this.start_date = ''
@@ -196,18 +291,18 @@ export default {
         // Trigger submit handler
         this.handleSubmit()
     },
-    handleSubmit() {
-        // Exit when the form isn't valid
-        if (!this.checkFormValidity()) {
-          return
-        }
-        // Push the name to submitted names
-        this.submittedNames.push(this.name)
-        // Hide the modal manually
-        this.$nextTick(() => {
-          this.$refs.modal.hide()
-        })
-    }
+    // handleSubmit() {
+    //     // Exit when the form isn't valid
+    //     if (!this.checkFormValidity()) {
+    //       return
+    //     }
+    //     // Push the name to submitted names
+    //     this.submittedNames.push(this.name)
+    //     // Hide the modal manually
+    //     this.$nextTick(() => {
+    //       this.$refs.modal.hide()
+    //     })
+    // }
   }
 }
 </script>
@@ -228,7 +323,7 @@ export default {
     padding-right: 20px;
   }
   .btn-style {
-    margin-left: 39%;
+    margin-left: 32%;
     width: 7%;
   }
   .fontbutton {

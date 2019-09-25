@@ -3,7 +3,7 @@
     <template slot="header">
       <span> {{ name }} </span>
      
-    </template>\
+    </template>
     <template slot="dropdown">
       <b-dropdown-item><a><i class="fa fa-user" /> Edit Password</a></b-dropdown-item>
       <b-dropdown-item><a v-on:click="logout()" ><i class="fa fa-lock" /> Logout</a></b-dropdown-item>
